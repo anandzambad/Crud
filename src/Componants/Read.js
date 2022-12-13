@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 const Read = () => {
     const [data, setData]=useState([])
     function getData (){
@@ -19,7 +20,11 @@ const Read = () => {
         getData()
     })
    }
-    
+   const setToLocalStorage=(id, name, email)=>{
+        localStorage.setItem("id", id)
+        localStorage.setItem("name", name)
+        localStorage.setItem("email", email)
+   } 
 
 
  useEffect (()=>{
@@ -47,7 +52,8 @@ const Read = () => {
           <td>{eachData.id}</td>
           <td>{eachData.name}</td>
           <td>{eachData.email}</td>
-          <td> <Button variant="success">Edit</Button></td>
+          
+       <td><Link to="/update"> <Button variant="success" onClick={()=>setToLocalStorage(eachData.id, eachData.name, eachData.email)}>Edit</Button></Link></td>
           <td><Button variant="danger" onClick={()=>handleDelete(eachData.id)}>Delete</Button></td>
         </tr>
       </tbody>
